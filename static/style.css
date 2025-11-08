@@ -1,0 +1,400 @@
+:root {
+    --bg: #0b1220;
+    --card: #0f172a;
+    --ink: #e2e8f0;
+    --muted: #9aa4b2;
+    --border: #1f2937;
+    --accent: #6ee7b7;
+    /* live-changed */
+    --ok: #86efac;
+    --err: #fca5a5;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+:root[data-theme="light"] {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --ink: #0b1220;
+    --muted: #606978;
+    --border: #e5e7eb;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(60rem 60rem at -10% -10%, color-mix(in oklab, var(--accent) 20%, transparent) 0%, transparent 60%),
+        radial-gradient(60rem 60rem at 120% 120%, color-mix(in oklab, var(--accent) 25%, transparent) 0%, transparent 60%),
+        var(--bg);
+}
+
+.wrap {
+    width: min(1100px, 96vw);
+    margin: 24px auto;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+/* allow wrapping on smaller screens so controls can move beneath the title */
+.topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* keep controls usable on narrow screens */
+.controls {
+    flex-wrap: wrap;
+}
+
+.controls button,
+.controls input[type="color"] {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 8px 10px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.controls .accent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.controls input[type="color"] {
+    width: 40px;
+    height: 36px;
+    padding: 0;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.3fr .7fr;
+    gap: 16px;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.calc,
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.calc {
+    padding: 16px;
+}
+
+.display {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+/* stack input and actions on very small screens for easier tapping */
+@media (max-width: 420px) {
+    .display {
+        grid-template-columns: 1fr;
+        grid-auto-flow: row;
+    }
+    .display-actions {
+        justify-content: flex-end;
+    }
+}
+
+.display input {
+    width: 100%;
+    padding: 14px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--card) 90%, black 10%);
+    color: var(--ink);
+    font-size: 16px;
+    outline: none;
+}
+
+.display input:focus {
+    border-color: color-mix(in oklab, var(--accent) 50%, var(--border));
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
+}
+
+.display-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.display-actions button {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 10px 12px;
+    cursor: pointer;
+    min-width: 44px;
+}
+
+.display-actions button:hover {
+    background: color-mix(in oklab, var(--accent) 12%, transparent);
+}
+
+.result {
+    min-height: 28px;
+    margin: 10px 2px 12px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.result.ok {
+    color: var(--ok);
+}
+
+.result.err {
+    color: var(--err);
+}
+
+.result.pulse {
+    animation: pulse .3s;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(.98);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* Make keys larger and easier to tap on mobile; make the equals button full-width */
+@media (max-width: 600px) {
+    .wrap {
+        width: 96vw;
+        margin: 12px auto;
+    }
+
+    .topbar h1 {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .controls button,
+    .controls input[type="color"] {
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    .keys {
+        gap: 8px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .keys button,
+    #equals {
+        padding: 16px; /* larger hit area */
+        font-size: 18px;
+        border-radius: 12px;
+        touch-action: manipulation;
+    }
+
+    /* make equals fill the full row on narrow screens for visibility */
+    .wide {
+        grid-column: span 4;
+    }
+
+    .panel {
+        padding: 12px;
+    }
+
+    .history {
+        max-height: 220px;
+    }
+}
+
+/* Slightly larger input on small screens */
+@media (max-width: 480px) {
+    .display input {
+        font-size: 18px;
+        padding: 16px;
+    }
+}
+
+.keys button,
+#equals {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: linear-gradient(0deg, color-mix(in oklab, var(--card) 85%, black 15%), var(--card));
+    color: var(--ink);
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform .04s ease;
+}
+
+.keys button:hover {
+    background: color-mix(in oklab, var(--accent) 10%, var(--card));
+}
+
+.keys button:active {
+    transform: translateY(1px);
+}
+
+.wide {
+    grid-column: span 2;
+    background: linear-gradient(0deg, color-mix(in oklab, var(--accent) 25%, var(--card)), var(--card));
+    border-color: color-mix(in oklab, var(--accent) 50%, var(--border));
+}
+
+.side {
+    display: grid;
+    gap: 16px;
+}
+
+.panel {
+    padding: 14px;
+}
+
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.panel-head h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.panel-actions button {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    border-radius: 10px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.history {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    max-height: 360px;
+    overflow: auto;
+}
+
+.history li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.hist-expr {
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.hist-expr:hover {
+    background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+.hist-res {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.hint {
+    opacity: .75;
+    font-size: 12px;
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+code {
+    background: color-mix(in oklab, var(--accent) 12%, transparent);
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.site-footer {
+  padding:12px;
+  text-align:center;
+  color: rgba(255,255,255,0.8);
+  font-size:0.9rem;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.06));
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Ensure footer links (e.g., @Akhil-28407) are visible and high-contrast */
+.site-footer a,
+.site-footer a:link,
+.site-footer a:visited {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 1;
+}
+.site-footer a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}

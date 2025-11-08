@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flask Calculator Pro</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <h1>Calculator</h1>
+      <div class="controls">
+        <button id="themeToggle" title="Toggle theme" aria-label="Toggle theme">🌓</button>
+        <label class="accent">
+          <span>Accent</span>
+          <input id="accentPicker" type="color" value="#6ee7b7" />
+        </label>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="calc">
+        <div class="display">
+          <input id="expression" type="text" inputmode="decimal" spellcheck="false"
+                 placeholder="Try: sin(pi/2) + 5! - log(100) + sqrt(16)" />
+          <div class="display-actions">
+            <button id="copyRes" title="Copy result">⧉</button>
+            <button id="backspace" title="Backspace">⌫</button>
+            <button id="clearEntry" title="Clear entry">CE</button>
+            <button id="allClear" title="All clear">AC</button>
+          </div>
+        </div>
+
+        <div id="result" class="result" aria-live="polite"></div>
+
+        <div class="keys">
+          <!-- Row: funcs -->
+          <button data-insert="sin(">sin</button>
+          <button data-insert="cos(">cos</button>
+          <button data-insert="tan(">tan</button>
+          <button data-insert="sqrt(">√</button>
+
+          <!-- Row: funcs -->
+          <button data-insert="log(">log</button>
+          <button data-insert="ln(">ln</button>
+          <button data-insert="pi">π</button>
+          <button data-insert="e">e</button>
+
+          <!-- Row: memory -->
+          <button data-mem="MC">MC</button>
+          <button data-mem="MR">MR</button>
+          <button data-mem="M+">M+</button>
+          <button data-mem="M-">M-</button>
+
+          <!-- Row: parens & mod -->
+          <button data-insert="(">(</button>
+          <button data-insert=")">)</button>
+          <button data-insert="%">%</button>
+          <button data-insert="//">//</button>
+
+          <!-- 7 8 9 / -->
+          <button data-insert="7">7</button>
+          <button data-insert="8">8</button>
+          <button data-insert="9">9</button>
+          <button data-insert="/">/</button>
+
+          <!-- 4 5 6 * -->
+          <button data-insert="4">4</button>
+          <button data-insert="5">5</button>
+          <button data-insert="6">6</button>
+          <button data-insert="*">*</button>
+
+          <!-- 1 2 3 - -->
+          <button data-insert="1">1</button>
+          <button data-insert="2">2</button>
+          <button data-insert="3">3</button>
+          <button data-insert="-">-</button>
+
+          <!-- 0 . ** + -->
+          <button data-insert="0">0</button>
+          <button data-insert=".">.</button>
+          <button data-insert="**">^</button>
+          <button data-insert="+">+</button>
+
+          <!-- factorial, sign, equals -->
+          <button data-insert="!">n!</button>
+          <button id="negate">±</button>
+          <button id="equals" class="wide">=</button>
+        </div>
+      </section>
+
+      <aside class="side">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>History</h2>
+            <div class="panel-actions">
+              <button id="clearHistory" title="Clear history">🗑</button>
+            </div>
+          </div>
+          <ul id="history" class="history"></ul>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Memory</h2>
+          </div>
+          <div class="memory">
+            <div>Stored: <span id="memValue">0</span></div>
+          </div>
+          <p class="hint">Tips: Use <code>sin, cos, tan, sqrt, log(x, base), ln, abs, round</code>, constants <code>pi</code>, <code>e</code>, and postfix <code>!</code>.</p>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+  <footer class="site-footer">
+    Designed by <a href="https://github.com/Akhil-28407" target="_blank" rel="noreferrer">@Akhil-28407</a>
+  </footer>
+</body>
+</html>
